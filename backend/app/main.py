@@ -42,6 +42,12 @@ app.include_router(notifications.router, prefix="/api/notifications", tags=["Not
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
 app.include_router(audit.router, prefix="/api/audit", tags=["Audit Log"])
 
+@app.get("/api/seed", tags=["Admin"])
+def seed_production_database():
+    import seed
+    seed.seed_db()
+    return {"message": "Database seeded successfully!"}
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     payload = decode_token(token)
