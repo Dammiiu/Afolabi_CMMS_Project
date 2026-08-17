@@ -44,9 +44,16 @@ app.include_router(audit.router, prefix="/api/audit", tags=["Audit Log"])
 
 @app.get("/api/seed", tags=["Admin"])
 def seed_production_database():
-    import seed
-    seed.seed_db()
-    return {"message": "Database seeded successfully!"}
+    import traceback
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '/..'))
+        import seed
+        seed.seed_db()
+        return {"message": "Database seeded successfully!"}
+    except Exception as e:
+        return {"error": str(e), "traceback": traceback.format_exc()}
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
