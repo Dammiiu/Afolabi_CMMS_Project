@@ -28,8 +28,7 @@ const UserManagement = () => {
     { header: 'Email', accessor: 'email' },
     { 
       header: 'Role', 
-      accessor: 'role',
-      render: (user) => (
+      accessor: (user: User) => (
         <select
           value={user.role}
           onChange={(e) => handleRoleChange(user.id, e.target.value as UserRole)}
