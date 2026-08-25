@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-let baseURL = import.meta.env.VITE_API_URL || '';
+let baseURL = import.meta.env.VITE_API_URL || 'https://afolabi-cmms-project.onrender.com';
 if (baseURL && !baseURL.endsWith('/api')) {
   baseURL += '/api';
 } else if (!baseURL) {
-  baseURL = '/api';
+  baseURL = 'https://afolabi-cmms-project.onrender.com/api';
 }
 
 const api = axios.create({
@@ -29,7 +29,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem('refresh_token');
         if (refreshToken) {
-          const res = await axios.post('/api/auth/refresh', { refresh_token: refreshToken });
+          const res = await axios.post(`${baseURL}/auth/refresh`, { refresh_token: refreshToken });
           localStorage.setItem('access_token', res.data.access_token);
           if (res.data.refresh_token) {
             localStorage.setItem('refresh_token', res.data.refresh_token);
