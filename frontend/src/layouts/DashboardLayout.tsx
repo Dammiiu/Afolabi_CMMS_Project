@@ -58,8 +58,11 @@ const DashboardLayout = () => {
     ],
     admin: [
       { name: 'Analytics', path: '/admin/analytics', icon: TrendingUp },
+      { name: 'Triage Queue', path: '/supervisor/triage', icon: Inbox },
+      { name: 'Work Orders', path: '/supervisor/work-orders', icon: Wrench },
       { name: 'Users', path: '/admin/users', icon: Users },
       { name: 'Locations', path: '/admin/locations', icon: MapPin },
+      { name: 'Inventory', path: '/supervisor/inventory', icon: Package },
     ],
   };
 
@@ -68,13 +71,8 @@ const DashboardLayout = () => {
   const SidebarContent = () => (
     <div className="flex flex-col h-full bg-white">
       {/* Brand Header */}
-      <div className="flex h-16 items-center px-6 border-b border-slate-100">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-primary-700 flex items-center justify-center text-white font-bold text-sm">
-            A
-          </div>
-          <span className="text-lg font-bold text-slate-900">AATU CMMS</span>
-        </div>
+      <div className="flex h-20 items-center justify-center px-4 border-b border-slate-100">
+        <img src="/logo.png" alt="AATU CMMS" className="max-h-16 object-contain" />
       </div>
 
       {/* Navigation Links */}
