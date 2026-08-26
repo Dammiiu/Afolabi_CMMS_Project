@@ -19,7 +19,7 @@ const TriageQueue = () => {
 
   const fetchRequests = () => {
     setLoading(true);
-    getRequests({ status: 'submitted' })
+    getRequests({ status: 'triaged' })
       .then((res) => setRequests(res.items))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));

@@ -47,16 +47,23 @@ const NewRequest = () => {
         description: formData.description,
         priority: 'low', // default, backend triage will update
       };
-      const newReq = await createRequest(reqData);
+      const response = await createRequest(reqData) as any;
+      const actualReq = response.request || response;
       
-      if (file) {
-        await uploadPhoto(newReq.id, file);
+      if (file && actualReq.id) {
+        await uploadPhoto(actualReq.id, file);
       }
       
       addToast('Request submitted successfully', 'success');
       navigate('/requestor/requests');
     } catch (error: any) {
-      addToast(error.response?.data?.detail || 'Failed to submit request', 'error');
+      let errorMsg = 'Failed to submit request';
+      if (error.response?.data?.detail) {
+        errorMsg = Array.isArray(error.response.data.detail) 
+          ? error.response.data.detail[0].msg 
+          : error.response.data.detail;
+      }
+      addToast(errorMsg, 'error');
     } finally {
       setLoading(false);
     }
