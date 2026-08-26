@@ -79,8 +79,8 @@ const LoginPage = () => {
       </div>
       <div className="hidden lg:block relative w-0 flex-1 bg-primary-900">
         <div className="absolute inset-0 h-full w-full object-cover flex flex-col items-center justify-center p-12 text-center text-white">
-          <div className="mb-8 p-6 bg-white rounded-2xl shadow-xl">
-            <img src="/logo.png" alt="AATU Logo" className="h-32 w-auto object-contain" />
+          <div className="mb-8 p-6 bg-white rounded-full shadow-xl h-48 w-48 flex items-center justify-center">
+            <img src="/logo.png" alt="AATU Logo" className="w-full max-h-full object-contain scale-110" />
           </div>
           <h1 className="text-4xl font-extrabold mb-4">Maintenance Management</h1>
           <p className="text-primary-200 max-w-lg text-lg">
