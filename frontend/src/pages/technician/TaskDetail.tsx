@@ -53,7 +53,7 @@ const TaskDetail = () => {
     fetchTaskDetails();
     // Fetch inventory items to log parts used
     getInventory()
-      .then((res) => setInventory(res.items))
+      .then((res) => setInventory(res))
       .catch((err) => console.error('Failed to load inventory', err));
   }, [id]);
 
