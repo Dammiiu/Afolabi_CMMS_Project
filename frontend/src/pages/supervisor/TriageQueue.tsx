@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { getRequests, triageRequest } from '../../api/requests';
-import { MaintenanceRequest, Priority } from '../../types';
+import { assignWorkOrder } from '../../api/workOrders';
+import { getUsers } from '../../api/users';
+import { MaintenanceRequest, Priority, User } from '../../types';
 import PageHeader from '../../components/PageHeader';
-import { AlertTriangle, Check, X, ShieldAlert, MapPin, Clock, Tag } from 'lucide-react';
+import { AlertTriangle, Check, X, ShieldAlert, MapPin, Clock, Tag, UserCheck } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import Modal from '../../components/Modal';
 import PriorityBadge from '../../components/PriorityBadge';
 
 const TriageQueue = () => {
   const [requests, setRequests] = useState<MaintenanceRequest[]>([]);
+  const [technicians, setTechnicians] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedReq, setSelectedReq] = useState<MaintenanceRequest | null>(null);
   const [modalType, setModalType] = useState<'approve' | 'reject' | null>(null);
   const [priority, setPriority] = useState<Priority>('medium');
   const [reason, setReason] = useState('');
+  const [selectedTechId, setSelectedTechId] = useState<string>('');
   const [submitting, setSubmitting] = useState(false);
   const { addToast } = useToast();
 
@@ -27,12 +31,16 @@ const TriageQueue = () => {
 
   useEffect(() => {
     fetchRequests();
+    getUsers({ role: 'technician', limit: 100 })
+      .then((res) => setTechnicians(res.items))
+      .catch(console.error);
   }, []);
 
   const openApproveModal = (req: MaintenanceRequest) => {
     setSelectedReq(req);
     setPriority(req.priority || 'medium');
     setReason('');
+    setSelectedTechId('');
     setModalType('approve');
   };
 
@@ -54,14 +62,18 @@ const TriageQueue = () => {
     setSubmitting(true);
     try {
       const status = modalType === 'approve' ? 'approved' : 'rejected';
-      await triageRequest(selectedReq.id, {
+      const response = await triageRequest(selectedReq.id, {
         status,
         priority,
         reason: reason.trim() || undefined,
-      });
+      }) as any;
+
+      if (status === 'approved' && selectedTechId && response.work_order_id) {
+        await assignWorkOrder(response.work_order_id, parseInt(selectedTechId));
+      }
 
       addToast(
-        `Request ${modalType === 'approve' ? 'approved' : 'rejected'} successfully`,
+        `Request ${status === 'approved' ? 'approved' : 'rejected'} successfully`,
         'success'
       );
       setRequests((prev) => prev.filter((r) => r.id !== selectedReq.id));
@@ -201,6 +213,28 @@ const TriageQueue = () => {
                 <option value="high">High (Disruptive fault/Lab equipments)</option>
                 <option value="critical">Critical (Safety hazard/Immediate attention needed)</option>
               </select>
+            </div>
+
+            <div>
+              <label className="label">Assign Technician (Optional)</label>
+              <div className="relative">
+                <select
+                  className="input-field pl-10"
+                  value={selectedTechId}
+                  onChange={(e) => setSelectedTechId(e.target.value)}
+                >
+                  <option value="">-- Unassigned (Assign later) --</option>
+                  {technicians.map(t => (
+                    <option key={t.id} value={t.id}>
+                      {t.full_name} {t.skill_tags && t.skill_tags.length ? `(${t.skill_tags.join(', ')})` : ''}
+                    </option>
+                  ))}
+                </select>
+                <UserCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                You can assign this immediately or leave it unassigned to be handled from the Work Orders page.
+              </p>
             </div>
 
             <div>
