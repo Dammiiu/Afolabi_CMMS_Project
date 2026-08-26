@@ -1,7 +1,7 @@
 import api from './client';
 import { InventoryItem, PaginatedResponse, InventoryTransaction } from '../types';
 
-export const getInventory = (params?: any): Promise<PaginatedResponse<InventoryItem>> => 
+export const getInventory = (params?: any): Promise<InventoryItem[]> => 
   api.get('/inventory', { params });
 
 export const getInventoryItem = (id: number): Promise<InventoryItem> => 

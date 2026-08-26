@@ -1,7 +1,7 @@
 import api from './client';
 import { Location, PaginatedResponse } from '../types';
 
-export const getLocations = (params?: any): Promise<PaginatedResponse<Location>> => 
+export const getLocations = (params?: any): Promise<Location[]> => 
   api.get('/locations', { params });
 
 export const getLocation = (id: number): Promise<Location> => 

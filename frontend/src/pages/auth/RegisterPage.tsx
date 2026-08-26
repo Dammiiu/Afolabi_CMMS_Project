@@ -41,8 +41,9 @@ const RegisterPage = () => {
 
   return (
     <div className="min-h-screen flex bg-slate-50 flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">Create your account</h2>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
+        <img src="/logo.png" alt="Abiola Ajimobi Technical University" className="h-20 w-auto mb-2" />
+        <h2 className="mt-4 text-center text-3xl font-extrabold text-slate-900">Create your account</h2>
         <p className="mt-2 text-center text-sm text-slate-600">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">

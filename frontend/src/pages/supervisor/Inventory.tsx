@@ -32,7 +32,7 @@ const Inventory = () => {
   const fetchInventory = () => {
     setLoading(true);
     getInventory()
-      .then((res) => setItems(res.items))
+      .then((res) => setItems(res))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   };

@@ -8,7 +8,7 @@ const LocationManagement = () => {
   const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
-    getLocations().then(res => setLocations(res.items)).catch(console.error);
+    getLocations().then(res => setLocations(res)).catch(console.error);
   }, []);
 
   const cols: Column<Location>[] = [

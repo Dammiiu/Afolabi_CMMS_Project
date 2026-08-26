@@ -31,7 +31,7 @@ const NewRequest = () => {
   const { addToast } = useToast();
 
   useEffect(() => {
-    getLocations().then(res => setLocations(res as unknown as Location[])).catch(console.error);
+    getLocations().then(res => setLocations(res)).catch(console.error);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {

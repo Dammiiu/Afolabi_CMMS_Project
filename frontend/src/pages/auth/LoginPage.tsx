@@ -29,7 +29,8 @@ const LoginPage = () => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <h2 className="mt-6 text-3xl font-extrabold text-slate-900">Sign in to AATU CMMS</h2>
+            <img src="/logo.png" alt="Abiola Ajimobi Technical University" className="h-20 w-auto mb-6" />
+            <h2 className="text-3xl font-extrabold text-slate-900">Sign in to AATU CMMS</h2>
             <p className="mt-2 text-sm text-slate-600">
               Or{' '}
               <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
