@@ -29,8 +29,7 @@ const LoginPage = () => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <img src="/logo.png" alt="Abiola Ajimobi Technical University" className="h-20 w-auto mb-6" />
-            <h2 className="text-3xl font-extrabold text-slate-900">Sign in to AATU CMMS</h2>
+            <h2 className="mt-6 text-3xl font-extrabold text-slate-900">Sign in to AATU CMMS</h2>
             <p className="mt-2 text-sm text-slate-600">
               Or{' '}
               <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
@@ -80,8 +79,8 @@ const LoginPage = () => {
       </div>
       <div className="hidden lg:block relative w-0 flex-1 bg-primary-900">
         <div className="absolute inset-0 h-full w-full object-cover flex flex-col items-center justify-center p-12 text-center text-white">
-          <div className="h-32 w-32 rounded-full bg-white/10 flex items-center justify-center mb-8 backdrop-blur-md">
-            <span className="text-4xl font-bold text-primary-300">AATU</span>
+          <div className="mb-8 p-6 bg-white rounded-2xl shadow-xl">
+            <img src="/logo.png" alt="AATU Logo" className="h-32 w-auto object-contain" />
           </div>
           <h1 className="text-4xl font-extrabold mb-4">Maintenance Management</h1>
           <p className="text-primary-200 max-w-lg text-lg">
