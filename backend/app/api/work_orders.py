@@ -38,7 +38,14 @@ async def assign_work_order(id: int, assign_data: AssignTech, db: Session = Depe
     db.commit()
     
     from app.services.notification_service import create_notification
-    await create_notification(db, assign_data.technician_id, f"You have been assigned to Work Order #{wo.id}")
+    await create_notification(
+        db, 
+        assign_data.technician_id, 
+        f"You have been assigned to Work Order #{wo.id}. Please check your dashboard for details.",
+        related_request_id=wo.request_id,
+        send_email_alert=True,
+        email_subject=f"New Task Assigned: Work Order #{wo.id}"
+    )
     return {"message": "Assigned successfully"}
 
 @router.patch("/{id}/start")
